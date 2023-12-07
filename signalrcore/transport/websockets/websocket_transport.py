@@ -187,7 +187,7 @@ class WebsocketTransport(BaseTransport):
         return self._on_message(
             self.protocol.parse_messages(raw_message))
 
-    def send(self, message):
+    def send(self, message, on_invocation=None):
         self.logger.debug("Sending message {0}".format(message))
         try:
             self._ws.send(
