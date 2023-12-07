@@ -117,7 +117,6 @@ class WebsocketTransport(BaseTransport):
             self.token = data["accessToken"]
             self.headers = {"Authorization": "Bearer " + self.token}
 
-
     def evaluate_handshake(self, message):
         self.logger.debug("Evaluating handshake {0}".format(message))
         msg, messages = self.protocol.decode_handshake(message)
@@ -136,12 +135,12 @@ class WebsocketTransport(BaseTransport):
         return messages
 
     def on_open(self, _):
-        self.logger.debug("-- web socket open --")
+        self.logger.info("-- web socket open --")
         msg = self.protocol.handshake_message()
         self.send(msg)
 
     def on_close(self, callback, close_status_code, close_reason):
-        self.logger.debug("-- web socket close --")
+        self.logger.info("-- web socket close --")
         self.logger.debug(close_status_code)
         self.logger.debug(close_reason)
         self.state = ConnectionState.disconnected
@@ -165,10 +164,10 @@ class WebsocketTransport(BaseTransport):
         Raises:
             HubError: [description]
         """
-        self.logger.debug("-- web socket error --")
-        self.logger.error(traceback.format_exc(10, True))
+        self.logger.info("-- web socket error --")
+        self.logger.debug(traceback.format_exc(10, True))
         self.logger.error("{0} {1}".format(self, error))
-        self.logger.error("{0} {1}".format(error, type(error)))
+        self.logger.debug("{0} {1}".format(error, type(error)))
         self.state = ConnectionState.disconnected
         #raise HubError(error)
 
