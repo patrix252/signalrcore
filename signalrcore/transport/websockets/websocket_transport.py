@@ -169,7 +169,6 @@ class WebsocketTransport(BaseTransport):
         self.logger.error(traceback.format_exc(10, True))
         self.logger.error("{0} {1}".format(self, error))
         self.logger.error("{0} {1}".format(error, type(error)))
-        self._on_close()
         self.state = ConnectionState.disconnected
         #raise HubError(error)
 
