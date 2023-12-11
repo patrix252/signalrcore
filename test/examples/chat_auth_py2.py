@@ -27,7 +27,6 @@ hub_connection = HubConnectionBuilder()\
         "access_token_factory": lambda: signalr_core_example_login(login_url, username, password)
     }).with_automatic_reconnect({
         "type": "interval",
-        "keep_alive_interval": 10,
         "intervals": [1, 3, 5, 6, 7, 87, 3]
     })\
     .build()

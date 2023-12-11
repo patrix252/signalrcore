@@ -45,11 +45,10 @@ class TestConfiguration(BaseTestCase):
 
     def test_enable_trace(self):
         hub = HubConnectionBuilder()\
-            .with_url(self.server_url, options={"verify_ssl":False})\
+            .with_url(self.server_url, options={"verify_ssl":False, 'keep_alive_interval': 10})\
             .configure_logging(logging.WARNING, socket_trace=True)\
             .with_automatic_reconnect({
                 "type": "raw",
-                "keep_alive_interval": 10,
                 "reconnect_interval": 5,
                 "max_attempts": 5
             })\

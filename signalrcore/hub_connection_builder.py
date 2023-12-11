@@ -65,7 +65,6 @@ class HubConnectionBuilder(object):
             .configure_logging(logging.ERROR)\
             .with_automatic_reconnect({
                 "type": "raw",
-                "keep_alive_interval": 10,
                 "reconnect_interval": 5,
                 "max_attempts": 5
             }).build()
@@ -94,6 +93,11 @@ class HubConnectionBuilder(object):
                 and not callable(options["access_token_factory"]):
             raise TypeError(
                 "access_token_factory must be a function without params")
+
+        if options is not None and 'keep_alive_interval' in options.keys():
+            self.keep_alive_interval = options.get('keep_alive_interval')
+        else:
+            self.keep_alive_interval = 15
 
         if options is not None:
             self.has_auth_configured = \
@@ -204,7 +208,6 @@ class HubConnectionBuilder(object):
             .configure_logging(logging.ERROR)\
             .with_automatic_reconnect({
                 "type": "raw",
-                "keep_alive_interval": 10,
                 "reconnect_interval": 5,
                 "max_attempts": 5
             })\
@@ -224,11 +227,7 @@ class HubConnectionBuilder(object):
         # 5 sec interval
         reconnect_interval = data.get("reconnect_interval", 5)
 
-        keep_alive_interval = data.get("keep_alive_interval", 15)
-
         intervals = data.get("intervals", [])  # Reconnection intervals
-
-        self.keep_alive_interval = keep_alive_interval
 
         reconnection_type = ReconnectionType[reconnect_type]
 

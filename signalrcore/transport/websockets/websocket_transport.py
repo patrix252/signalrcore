@@ -125,8 +125,8 @@ class WebsocketTransport(BaseTransport):
             self.state = ConnectionState.connected
             if self.reconnection_handler is not None:
                 self.reconnection_handler.reconnecting = False
-                if not self.connection_checker.running:
-                    self.connection_checker.start()
+            if not self.connection_checker.running:
+                self.connection_checker.start()
         else:
             self.logger.error(msg.error)
             self.on_socket_error(self._ws, msg.error)

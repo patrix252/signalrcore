@@ -45,12 +45,11 @@ class TestReconnectMethods(BaseTestCase):
 
     def test_reconnect_interval(self):
         connection = HubConnectionBuilder()\
-            .with_url(self.server_url, options={"verify_ssl": False})\
+            .with_url(self.server_url, options={"verify_ssl": False, 'keep_alive_interval': 3})\
             .configure_logging(logging.ERROR)\
             .with_automatic_reconnect({
                 "type": "interval",
                 "intervals": [1, 2, 4, 45, 6, 7, 8, 9, 10],
-                "keep_alive_interval": 3
             })\
             .build()
         self.reconnect_test(connection)
@@ -108,7 +107,6 @@ class TestReconnectMethods(BaseTestCase):
             .configure_logging(logging.ERROR)\
             .with_automatic_reconnect({
                 "type": "raw",
-                "keep_alive_interval": 10,
                 "max_attempts": 4
             })\
             .build()

@@ -18,7 +18,6 @@ hub_connection = HubConnectionBuilder()\
     .configure_logging(logging.ERROR, socket_trace=False, handler=handler) \
     .with_automatic_reconnect({
             "type": "interval",
-            "keep_alive_interval": 10,
             "intervals": [1, 3, 5, 6, 7, 87, 3]
         })\
     .with_hub_protocol(MessagePackHubProtocol())\

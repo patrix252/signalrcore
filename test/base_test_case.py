@@ -45,7 +45,6 @@ class BaseTestCase(InternalTestCase):
             .configure_logging(logging.ERROR)\
             .with_automatic_reconnect({
                 "type": "raw",
-                "keep_alive_interval": 10,
                 "reconnect_interval": 5,
                 "max_attempts": 5
             })

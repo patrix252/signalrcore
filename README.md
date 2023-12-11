@@ -48,7 +48,6 @@ hub_connection = HubConnectionBuilder()\
     .configure_logging(logging.DEBUG)\
     .with_automatic_reconnect({
         "type": "raw",
-        "keep_alive_interval": 10,
         "reconnect_interval": 5,
         "max_attempts": 5
     }).build()
@@ -69,7 +68,6 @@ hub_connection = HubConnectionBuilder()\
             .configure_logging(logging.DEBUG)\
             .with_automatic_reconnect({
                 "type": "raw",
-                "keep_alive_interval": 10,
                 "reconnect_interval": 5,
                 "max_attempts": 5
             }).build()
@@ -164,11 +162,10 @@ keep_alive_interval sets the seconds of ping message
 
 ```python
 hub_connection = HubConnectionBuilder()\
-    .with_url(server_url)\
+    .with_url(server_url, options={'keep_alive_interval': 10})\
     .configure_logging(logging.DEBUG)\
     .with_automatic_reconnect({
         "type": "raw",
-        "keep_alive_interval": 10,
         "reconnect_interval": 5,
         "max_attempts": 5
     }).build()
@@ -180,7 +177,6 @@ hub_connection = HubConnectionBuilder()\
     .configure_logging(logging.DEBUG)\
     .with_automatic_reconnect({
         "type": "raw",
-        "keep_alive_interval": 10,
         "reconnect_interval": 5,
         "max_attempts": 5
     }).build()
@@ -293,7 +289,6 @@ hub_connection = HubConnectionBuilder()\
     .configure_logging(logging.DEBUG, socket_trace=True, handler=handler) \
     .with_automatic_reconnect({
             "type": "interval",
-            "keep_alive_interval": 10,
             "intervals": [1, 3, 5, 6, 7, 87, 3]
         }).build()
 
